@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Feedback</title>
+    <style>
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    padding-bottom: 60px; /* Space for static footer */
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Suggestions Container */
+#suggestionsContainer {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+#suggestionsContainer div {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/* Buttons Styling */
+button {
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px 5px 0 0;
+    border-radius: 4px;
+}
+
+/* Submit Feedback Button */
+button[onclick^='submitFeedback'] {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Delete Suggestion Button */
+button[onclick^='deleteSuggestion'] {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Button Hover Effects */
+button:hover {
+    opacity: 0.8;
+}
+
+/* Static Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-size: xx-large;
+    margin-right: 10px;
+}
+
+footer p {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #suggestionsContainer {
+        width: 95%;
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    
+    <h1>Admin Feedback</h1>
+
+    <div id="suggestionsContainer">
+
+        <script>
+            
+            function fetchSuggestions() {
+                
+                var fetchURL = "fetch_suggestions.php";
+
+                fetch(fetchURL)
+                    .then(response => response.json())
+                    .then(data => {
+                        displaySuggestions(data);
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+            }
+
+            
+            function displaySuggestions(suggestions) {
+                var suggestionsContainer = document.getElementById("suggestionsContainer");
+
+            
+                suggestionsContainer.innerHTML = "";
+
+                
+                suggestions.forEach(function (suggestion) {
+                    var suggestionDiv = document.createElement("div");
+                    suggestionDiv.innerHTML =
+                        "<strong>Suggestion:</strong> " + suggestion.suggestion +
+                        "<br><strong>Feedback:</strong> " + (suggestion.feedback || "Pending") +
+                        "<br><strong>Date Submitted:</strong> " + suggestion.date_submitted +
+                        "<br><textarea id='" + suggestion.suggestionId + "' rows='4' cols='50' placeholder='Add Feedback'></textarea>" +
+                        "<br><button onclick='submitFeedback(\"" + suggestion.suggestionId + "\")'>Submit Feedback</button>" +
+                        "<button onclick='deleteSuggestion(\"" + suggestion.suggestionId + "\")'>Delete Suggestion</button>" +
+                        "<hr>";
+                    suggestionsContainer.appendChild(suggestionDiv);
+                });
+            }
+
+            
+            function submitFeedback(suggestionId) {
+                var feedbackText = document.getElementById(suggestionId).value;
+
+                
+                var submitFeedbackURL = "submit_feedback.php";
+
+                
+                fetch(submitFeedbackURL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ suggestionId: suggestionId, feedback: feedbackText }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Feedback submitted successfully!");
+                        
+                        fetchSuggestions(); 
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Error submitting feedback. Please try again.");
+                    });
+            }
+
+            
+            function deleteSuggestion(suggestionId) {
+            
+                var deleteSuggestionURL = "delete_suggestion.php";
+
+            
+                fetch(deleteSuggestionURL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ suggestionId: suggestionId }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Suggestion deleted successfully!");
+                        
+                        fetchSuggestions(); 
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Error deleting suggestion. Please try again.");
+                    });
+            }
+
+        
+            window.onload = fetchSuggestions;
+        </script>
+    </div>
+
+
+<footer>
+    <a href="admin.php">🔙</a>
+    <p>&copy; 2025 UniVoice Platform. All rights reserved.</p>
+</footer>
+</body>
+
+</html>

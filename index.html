@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniVoice</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container Layout */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Navigation Bar */
+.navbar {
+    background: #28a745;
+    width: 250px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 0;
+    display: block;
+    transition: background 0.3s;
+}
+
+.navbar a:hover {
+    background: #218838;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Main Content */
+.main {
+    margin-left: 270px;
+    padding: 40px;
+    max-width: 800px;
+}
+
+.main h2 {
+    color: #28a745;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.main h4 {
+    color: #218838;
+    margin-top: 20px;
+}
+
+.main p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    background: #333;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+        position: relative;
+    }
+
+    .navbar a {
+        padding: 10px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+        padding: 8px 0;
+    }
+
+    .main {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .footer {
+        font-size: 14px;
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <a href="admin_login.php">Admin</a><br>
+            <a href="user_login.php">User Portal</a><br>
+            <a href="user_feedback.html">Feedback Hub</a><br>
+            <a href="services.html">Our Services</a><br>
+            <a href="about.html">About</a><br>
+            <a href="contact.html">Get in Touch</a><br> 
+        </div>
+
+        <div class="main">
+            <h2>Welcome to UniVoice – Your Feedback Matters</h2>
+            <p>
+                Our platform empowers students and staff to share their suggestions and feedback effortlessly. Help shape a better university experience by making your voice heard.
+            </p>
+            <br>
+            <h4>How It Works</h4>
+            <p>
+                Submit your suggestion in just a few clicks. Our system ensures transparency and efficiency, allowing administrators to review, respond, and take action on your suggestions in real time.
+            </p>
+            <br>
+            <h4>Why Use Our System?</h4>
+            <p>
+                Say goodbye to slow, outdated suggestion boxes. Our digital platform is fast, secure, and accessible anytime, anywhere ensuring your feedback reaches the right people instantly.
+            </p>
+            <br>
+            <br>
+            <h4>Get Started Today</h4>
+            <p>
+                Sign up as a user to submit your suggestions. Together, we can make meaningful improvements at the university.
+            </p>
+        </div>
+    </div>    
+        <div class="footer">
+            <p>&copy; 2025 UniVoice Platform. All rights reserved.</p>
+        </div>
+
+</body>
+
+</html>
